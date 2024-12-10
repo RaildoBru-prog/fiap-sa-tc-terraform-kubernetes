@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-lanchonete-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-lanchonete
+  template:
+    metadata:
+      labels:
+        app: app-lanchonete
+    spec:
+      containers:
+      - name: app-lanchonete
+        image: wagnersanches/app-lanchonete-fiap:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
