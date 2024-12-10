@@ -1,0 +1,3 @@
+variable "account-id" {
+    default = ""
+}
