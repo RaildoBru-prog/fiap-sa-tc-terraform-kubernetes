@@ -27,10 +27,10 @@ resource "aws_security_group" "security-group-eks" {
   vpc_id      = aws_vpc.tech-challenge.id
 
   ingress {
-    description = "All"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    description = "alb"
+    from_port   = 30000
+    to_port     = 30000
+    protocol    = "TCP"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -61,8 +61,7 @@ resource "aws_eks_cluster" "tech-challenge" {
             aws_subnet.public-subnet-az2.id
         ]
     
-        # security_group_ids = [aws_security_group.security-group-eks.id]
-
+       security_group_ids = [aws_security_group.security-group-eks.id]
     }
     
     access_config {

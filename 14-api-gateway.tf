@@ -30,9 +30,9 @@ resource "aws_apigatewayv2_route" "apigw_route" {
   depends_on    = [aws_apigatewayv2_integration.tech-challenge]
 }
 
-# resource "aws_apigatewayv2_route" "post_handler" {
-#   api_id    = aws_apigatewayv2_api.tech-challenge.id
-#   route_key = "POST /authorizer"
+resource "aws_apigatewayv2_route" "post_handler" {
+  api_id    = aws_apigatewayv2_api.tech-challenge.id
+  route_key = "POST /authorizer"
 
-#   target = "integrations/${aws_apigatewayv2_integration.tech-challenge.id}"
-# }
+  target = "integrations/${aws_apigatewayv2_integration.tech-challenge.id}"
+}
