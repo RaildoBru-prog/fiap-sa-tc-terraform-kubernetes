@@ -3,10 +3,15 @@ resource "aws_apigatewayv2_api" "tech-challenge" {
   protocol_type = "HTTP"
 }
 
+
+# data "aws_eks_cluster" "eks" {
+#   name = aws_eks_cluster.tech-challenge.name
+# }
+
 resource "aws_apigatewayv2_integration" "tech-challenge" {
   api_id           = aws_apigatewayv2_api.tech-challenge.id
   integration_type = "HTTP_PROXY"
-  integration_uri  = aws_lb_listener.tech-challenge.arn
+  integration_uri  = data
 
   integration_method = "ANY"
   connection_type    = "VPC_LINK"

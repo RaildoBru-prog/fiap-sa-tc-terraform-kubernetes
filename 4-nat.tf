@@ -1,6 +1,6 @@
 resource "aws_eip" "eip-az1" {
     domain = "vpc"
-
+    
     depends_on = [ 
         aws_internet_gateway.tech-challenge
      ]

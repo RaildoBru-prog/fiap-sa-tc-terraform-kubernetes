@@ -40,14 +40,9 @@ resource "aws_eks_node_group" "tech-challenge" {
     node_role_arn = aws_iam_role.nodes.arn
     
     subnet_ids = [
-        aws_subnet.private-subnet-az1.id,
-        aws_subnet.private-subnet-az2.id
+        aws_subnet.public-subnet-az1.id,
+        aws_subnet.public-subnet-az2.id
     ] 
-
-    # subnet_ids = [
-    #     aws_subnet.private-subnet-az1.id,
-    #     aws_subnet.private-subnet-az2.id
-    # ] 
 
     capacity_type = "ON_DEMAND"
     instance_types = ["t3.medium"]

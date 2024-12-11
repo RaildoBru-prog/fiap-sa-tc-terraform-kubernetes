@@ -9,6 +9,13 @@ resource "aws_security_group" "security-group-alb" {
     cidr_blocks = ["0.0.0.0/0"]  # Allow HTTP from anywhere (for demo purposes)
   }
 
+  ingress {
+    from_port   = 30000
+    to_port     = 30000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Allow HTTP from anywhere (for demo purposes)
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -27,10 +34,10 @@ resource "aws_lb" "tech-challenge" {
     internal = true
     load_balancer_type = "application"
     security_groups = [aws_security_group.security-group-alb.id]
-
+    
     subnets = [
-        aws_subnet.private-subnet-az1.id,
-        aws_subnet.private-subnet-az2.id
+        aws_subnet.public-subnet-az1.id,
+        aws_subnet.public-subnet-az2.id
     ]
 
     tags = {

@@ -25,8 +25,6 @@ resource "aws_apigatewayv2_vpc_link" "tech-challenge" {
   name        = "vpclink_apigw_to_alb"
   security_group_ids = [aws_security_group.security-group-vpc-link.id]
   subnet_ids = [
-    aws_subnet.private-subnet-az1.id,
-    aws_subnet.private-subnet-az2.id,
     aws_subnet.public-subnet-az1.id,
     aws_subnet.public-subnet-az2.id
   ]
