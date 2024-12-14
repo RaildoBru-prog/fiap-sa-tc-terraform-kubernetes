@@ -4,15 +4,18 @@ resource "aws_lb" "ecs_alb" {
  security_groups    = [aws_security_group.lb_security_group.id]
  load_balancer_type = "application"
  internal = true
- subnets =  [aws_subnet.private-subnet-az1.id, aws_subnet.private-subnet-az2.id]
+ subnets =  [
+  aws_subnet.private-subnet-az1.id, 
+  aws_subnet.private-subnet-az2.id
+]
 
 }
 
 # Create the ALB target group for ECS.
 resource "aws_lb_target_group" "alb_ecs_tg" {
  name        = "${var.name_app}-ALB-TG"
- port        = 80
- protocol    = "TCP"
+ port        = var.container_port
+ protocol    = "HTTP"
  target_type = "ip"
  vpc_id      = aws_vpc.tech-challenge.id
 
@@ -22,7 +25,7 @@ resource "aws_lb_target_group" "alb_ecs_tg" {
    interval            = "30"
    protocol            = "HTTP"
    matcher             = "200,301,302"
-   path                = "/actuator/health"
+   path                = "/status"
    timeout             = "15"
    unhealthy_threshold = "5"
  }
